@@ -1,0 +1,57 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+h2.no-margin-bottom{
+  display: inline-block;
+}
+
+
+td.tard-close {
+  position: absolute;
+}
+
+td.tard-close .dropdown-toggle {
+  color: #999;
+  background: none;
+  border: none;
+}
+
+td.tard-close .dropdown-toggle:after {
+  display: none;
+}
+
+td.tard-close .dropdown-menu {
+  border: none;
+  min-width: auto;
+  font-size: 0.9em;
+  border-radius: 0;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1), -2px -2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1), -2px -2px 3px rgba(0, 0, 0, 0.1);
+}
+
+td.tard-close .dropdown-menu a {
+  color: #999 !important;
+}
+
+td.tard-close .dropdown-menu a:hover {
+  background: #796AEE;
+  color: #fff !important;
+}
+
+td.tard-close .dropdown-menu a i {
+  margin-right: 10px;
+  -webkit-transition: none;
+  transition: none;
+}
