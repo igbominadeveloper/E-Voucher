@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,20 +11,47 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::get('/', function(){
+
     return redirect('/home');
+
 });
 
-Route::get('/voucher',[
-    'uses' => 'VoucherController@create',
-    'middleware' => 'role',
-    'roles' => 'accountant'
+Route::get('/user', function (Request $request){
+
+    $user = \App\User::where('id',$request->user()->id)->first();
+
+    return $user;
+
+});
+
+Route::get('/user/role', function (Request $request){
+
+    $user = \App\User::where('id',$request->user()->id)->first();
+
+    return $user->roles()->first();
+
+});
+
+Route::get('/vouchers',[
+    'uses' => 'VoucherController@index',
+    'middleware' => ['role','auth'],
+    'roles' => ['assistant','accountant','administrator'],
 ]);
 
-Route::post('/voucher',[
+
+Route::get('/vouchers/create',[
+    'uses' => 'VoucherController@create',
+    'middleware' => ['role','auth'],
+    'roles' => ['assistant','accountant'],
+]);
+
+Route::post('/vouchers',[
     'uses' => 'VoucherController@store',
-    'middleware' => 'role',
-    'roles' => 'accountant'
+    'middleware' => ['role','auth'],
+    'roles' => ['assistant','accountant']
 ]);
 
 
@@ -31,13 +59,13 @@ Route::get('/officers',[
     'uses' => 'OfficerController@index',
     'as' => 'officers',
     'middleware' => ['role','auth'],
-    'roles' => 'administrator'
+    'roles' => ['administrator','accountant']
 ]);
 
 Route::post('/officers',[
     'uses' => 'OfficerController@store',
     'middleware' => ['role','auth'],
-    'roles' => 'administrator'
+    'roles' => ['administrator','accountant']
 ]);
 
 Route::get('/home', [

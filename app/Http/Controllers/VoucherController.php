@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Voucher;
 use Illuminate\Http\Request;
 
+
 class VoucherController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
+        return view('voucher.index', ['page' => 'Vouchers','vouchers' => Voucher::all()]);
     }
 
     /**
@@ -24,7 +25,8 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+        return view('voucher.create');
+
     }
 
     /**
@@ -35,7 +37,15 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'user_id' => 'required',
+            'officer' => 'required',
+            'amount' => 'required'
+        ]);
+
+        Voucher::create($request->only('officer_id','amount','description'));
+
+
     }
 
     /**

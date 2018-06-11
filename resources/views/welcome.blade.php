@@ -1,7 +1,8 @@
 @extends('layout.master')
   @section('content')
+    <app-counter></app-counter>
 
-          <!-- Dashboard Header Section    -->
+    <!-- Dashboard Header Section    -->
           <section class="dashboard-header">
             <div class="container-fluid">
               <div class="row">
