@@ -38,7 +38,7 @@ Route::get('/user/role', function (Request $request){
 Route::get('/vouchers',[
     'uses' => 'VoucherController@index',
     'middleware' => ['role','auth'],
-    'roles' => ['assistant','accountant','administrator'],
+    'roles' => ['assistant','accountant','administrator']
 ]);
 
 
