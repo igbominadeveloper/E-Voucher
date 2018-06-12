@@ -25,7 +25,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('voucher.create');
+        return view('voucher.create',['page' => 'Create Voucher']);
 
     }
 
