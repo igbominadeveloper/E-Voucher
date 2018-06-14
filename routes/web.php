@@ -29,11 +29,12 @@ Route::get('/user', function (Request $request){
 
 Route::get('/user/role', function (Request $request){
 
-    $user = \App\User::where('id',$request->user()->id)->first();
+    $user = \App\User::with('roles')->where('id',$request->user()->id)->first();
 
-    return $user->roles()->first();
+    return $user;
 
 });
+
 
 Route::get('/vouchers',[
     'uses' => 'VoucherController@index',

@@ -49,22 +49,8 @@ import Sidebar from './components/Sidebar.vue';
 const app = new Vue({
     el: '#app',
     data:{
-      account:{
-          email:'',
-          password:'',
-          role:'',
-          name:'',
-          password_confirmation:''
-      },
-      officer:{
-          email:'',
-          firstName:'',
-          lastName:'',
-          address:'',
-          phone:'',
-          staff_number:'',
-          rank:'',
-      },
+      account:{},
+      officer:{},
       response:{},
       error:{}
     },

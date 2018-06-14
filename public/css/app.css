@@ -10411,6 +10411,108 @@ a.text-dark:focus {
   }
 }
 
+.content-wrapper {
+  margin: 5rem auto;
+  text-align: center;
+}
+
+#myTabContent {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+p {
+  text-align: center;
+}
+
+#front {
+  margin-top: 3rem;
+  width: 800px;
+}
+
+#front > .container-fluid {
+  background-color: #fff;
+}
+
+.tab-content {
+  margin: 0px auto;
+}
+
+#front > card {
+  background-color: transparent;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: none;
+}
+
+#front .head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 20px auto;
+  padding: 20px 41px;
+}
+
+.head > .address {
+  margin-top: 30px;
+  text-align: center;
+}
+
+div.group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+div.tables {
+  width: 88%;
+  margin: 20px auto;
+  padding-right: 42px;
+}
+
+div.table {
+  padding: 20px 20px;
+}
+
+.table-bordered {
+  width: 100%;
+  text-align: center;
+}
+
+.table-three {
+  margin: 20px auto;
+}
+
+div.slant {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  width: 285px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: 45px;
+  font-size: 11px;
+}
+
+div.slant > p {
+  text-align: justify;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
