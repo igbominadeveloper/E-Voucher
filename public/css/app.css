@@ -10411,6 +10411,22 @@ a.text-dark:focus {
   }
 }
 
+.bottom-one {
+  font-size: smaller;
+}
+
+#table-three td input {
+  border: none;
+  outline: none;
+}
+
+#table-three {
+  width: 483px;
+  font-size: smaller;
+  -webkit-box-sizing: 0px;
+          box-sizing: 0px;
+}
+
 .content-wrapper {
   margin: 5rem auto;
   text-align: center;
@@ -10428,6 +10444,24 @@ p {
 #front {
   margin-top: 3rem;
   width: 800px;
+}
+
+.text-bold .mt-1 .pt-3 .card-title .text-center {
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.footnotes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#table-one td input {
+  height: 125px;
+  outline: none;
 }
 
 #front > .container-fluid {
