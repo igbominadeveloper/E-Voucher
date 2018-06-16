@@ -36,34 +36,34 @@ Route::get('/user/role', function (Request $request){
 });
 
 
-Route::get('/vouchers',[
+Route::get('/voucher',[
     'uses' => 'VoucherController@index',
     'middleware' => ['role','auth'],
     'roles' => ['assistant','accountant','administrator']
 ]);
 
 
-Route::get('/vouchers/create',[
+Route::get('/voucher/create',[
     'uses' => 'VoucherController@create',
     'middleware' => ['role','auth'],
     'roles' => ['assistant','accountant'],
 ]);
 
-Route::post('/vouchers',[
+Route::post('/voucher',[
     'uses' => 'VoucherController@store',
     'middleware' => ['role','auth'],
     'roles' => ['assistant','accountant']
 ]);
 
 
-Route::get('/officers',[
+Route::get('/officer',[
     'uses' => 'OfficerController@index',
     'as' => 'officers',
     'middleware' => ['role','auth'],
     'roles' => ['administrator','accountant']
 ]);
 
-Route::post('/officers',[
+Route::post('/officer',[
     'uses' => 'OfficerController@store',
     'middleware' => ['role','auth'],
     'roles' => ['administrator','accountant']

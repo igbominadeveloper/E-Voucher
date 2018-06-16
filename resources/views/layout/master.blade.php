@@ -22,17 +22,16 @@
   </head>
   <body>
   <div class="page" id="app">
-      <!-- Main Navbar-->
-    @include('layout.partials.header')
-      <div class="page-content d-flex align-items-stretch">
-       <!-- Side Navbar -->
-        <app-sidebar></app-sidebar>
-          <div class="content-inner">
-            @yield('content')
-          @include('layout.partials.footer')
+      <app-body>
+      @include('layout.partials.header')
+          <div class="page-content d-flex align-items-stretch">
+            <app-sidebar></app-sidebar>
+              <div class="content-inner">
+                @yield('content')
+                @include('layout.partials.footer')
+              </div>
           </div>
-         </div>
-      </div>
+      </app-body>
   </div>
     <!-- JavaScript files-->
     <script src="/js/app.js"></script>
