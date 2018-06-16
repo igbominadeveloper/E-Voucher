@@ -8,6 +8,90 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+//custom Styles
+
+.content-wrapper{
+  margin: 5rem auto;
+  text-align: center;
+}
+
+#myTabContent{
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Ubuntu', sans-serif
+}
+
+p{
+  text-align: center;
+}
+#front{
+  margin-top: 3rem;
+  width: 800px;
+}
+
+#front > .container-fluid {
+  background-color: #fff;
+}
+
+.tab-content{
+  margin: 0px auto;
+}
+
+#front > card{
+  background-color: transparent;
+  flex-direction: row!important;
+  justify-content: space-between;
+  border: none;
+}
+
+#front .head{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 20px auto;
+  padding: 20px 41px;
+}
+
+.head > .address{
+  margin-top: 30px;
+  text-align: center;
+}
+
+div.group{
+  display: flex;
+  justify-content: space-between;
+}
+
+div.tables{
+  width:88%;
+  margin: 20px auto;
+  padding-right: 42px;
+}
+div.table{
+  padding: 20px 20px;
+}
+
+.table-bordered{
+  width:100%;
+  text-align: center;
+}
+
+.table-three{
+  margin: 20px auto;
+}
+
+
+div.slant{
+  transform: rotate(-90deg);
+  width:285px;
+  height: fit-content;
+  margin-top: 45px;
+  font-size: 11px;
+}
+
+div.slant > p{
+  text-align: justify;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -55,3 +139,4 @@ td.tard-close .dropdown-menu a i {
   -webkit-transition: none;
   transition: none;
 }
+

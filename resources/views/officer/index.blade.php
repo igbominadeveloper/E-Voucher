@@ -1,5 +1,6 @@
 @extends('layout.master')
     @section('content')
+        <app-counter></app-counter>
         <section class="tables">
             <div class="container-fluid">
                 <div class="row">

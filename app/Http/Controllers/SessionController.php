@@ -15,9 +15,10 @@ class SessionController extends Controller
         return view('user.index',['users' => $users,'page' => 'Users']);
     }
 
+
     public function home(){
 
-        return view('welcome',['user' => auth()->user(),'page' => 'Homepage']);
+        return view('welcome',['user' => auth()->user(),'page' => 'Dashboard']);
 
     }
 
@@ -42,11 +43,13 @@ class SessionController extends Controller
 
         //attempt to login the user
         if(!auth()->attempt(['email' => $request->email,'password' => $request->password])){
-            return back();
+            return ['failure' => 'User not found'];
         }
 
         //redirect to the homepage
-        return redirect('/home');
+//        return redirect('/home');
+
+        return ['success' => 'User Authenticated','user' => auth()->user()];
     }
 
     public function fresh(Request $request){

@@ -21,9 +21,9 @@ class Role
             return response("Unauthorized Request", 401);
         }
 
-        $actions = $request->route()->getAction();
+        $action = $request->route()->getAction();
 
-        $roles = isset($actions['roles']) ? $actions['roles'] : null;
+        $roles = isset($action['roles']) ? $action['roles'] : null;
 
         if($request->user()->hasAnyRole($roles) || !$roles){
 
@@ -31,7 +31,8 @@ class Role
 
         }
 
-        return response("Unauthorized Request", 401);
+//        return view('errors.401')->with(response("Unathorised Response", 401));
 
+        return response(401);
     }
 }

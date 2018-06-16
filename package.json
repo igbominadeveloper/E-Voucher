@@ -19,6 +19,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "vue-router": "^3.0.1"
+        "moment": "^2.22.2",
+        "vue-router": "^3.0.1",
+        "vuetify": "^1.0.19"
     }
 }

@@ -26,18 +26,11 @@
     @include('layout.partials.header')
       <div class="page-content d-flex align-items-stretch">
        <!-- Side Navbar -->
-        @include('layout.partials.sidebar')
-         <div class="content-inner">
-             <header class="page-header">
-                 <div class="container-fluid">
-                     <h2 class="no-margin-bottom">{{$page ? $page:''}}</h2>
-                     @if( request()->route() == '/users')
-                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary pull-right">Create Account </button>
-                     @endif
-                 </div>
-             </header>
+        <app-sidebar></app-sidebar>
+          <div class="content-inner">
             @yield('content')
-         @include('layout.partials.footer')
+          @include('layout.partials.footer')
+          </div>
          </div>
       </div>
   </div>

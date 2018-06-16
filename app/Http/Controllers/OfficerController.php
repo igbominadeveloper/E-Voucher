@@ -19,7 +19,10 @@ class OfficerController extends Controller
     {
         $officers = Officer::latest()->get();
 
-        return view('officer.index',['officers' => $officers, 'page' => 'Officers']);
+
+        if(request()->user()->hasRole('administrator')) return view('officer.index',['officers' => $officers, 'page' => 'Officers']);
+
+        return $officers;
     }
 
 
