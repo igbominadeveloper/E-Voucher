@@ -4,15 +4,12 @@
         <div class="container-fluid">
             <div class="row">
                 <ul class="nav nav-tabs text-center mr-auto ml-auto mb-4" id="myTab" role="tablist">
-
                     <li class="nav-item">
                         <a class="nav-link active" id="front-tab" data-toggle="tab" href="#front" role="tab" aria-controls="front" aria-selected="true">Front</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" id="back-tab" data-toggle="tab" href="#back" role="tab" aria-controls="back" aria-selected="false">Back</a>
                     </li>
-
                 </ul>
             </div>
         </div>
