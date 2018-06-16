@@ -38,7 +38,6 @@ p{
   text-align: center;
 }
 #front{
-  margin-top: 3rem;
   width: 800px;
 }
 .text-bold .mt-1 .pt-3 .card-title .text-center{
@@ -108,18 +107,17 @@ div.table{
 }
 
 
-div.slant{
+div.slant {
   transform: rotate(-90deg);
   width:285px;
   height: fit-content;
-  margin-top: 45px;
+  margin-top: 86px;
   font-size: 11px;
 }
 
 div.slant > p{
   text-align: justify;
 }
-
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

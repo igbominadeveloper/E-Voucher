@@ -10442,7 +10442,6 @@ p {
 }
 
 #front {
-  margin-top: 3rem;
   width: 800px;
 }
 
@@ -10539,7 +10538,7 @@ div.slant {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  margin-top: 45px;
+  margin-top: 86px;
   font-size: 11px;
 }
 

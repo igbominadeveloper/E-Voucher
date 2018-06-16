@@ -50766,7 +50766,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", [
-      _c("a", { attrs: { href: "/vouchers" } }, [
+      _c("a", { attrs: { href: "/voucher" } }, [
         _c("i", { staticClass: "icon-bill" }),
         _vm._v("Vouchers ")
       ])
@@ -50776,7 +50776,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "/officers" } }, [
+    return _c("a", { attrs: { href: "/officer" } }, [
       _c("i", { staticClass: "icon-grid" }),
       _vm._v("Officers ")
     ])

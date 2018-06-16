@@ -12,8 +12,8 @@
         <span class="heading">Main</span>
         <ul class="list-unstyled">
             <li class="active"><a href="/home"> <i class="icon-home"></i>Dashboard </a></li>
-            <li><a href="/vouchers"> <i class="icon-bill"></i>Vouchers </a></li>
-            <li v-show="user.id == 3"><a href="/officers"> <i class="icon-grid"></i>Officers </a></li>
+            <li><a href="/voucher"> <i class="icon-bill"></i>Vouchers </a></li>
+            <li v-show="user.id == 3"><a href="/officer"> <i class="icon-grid"></i>Officers </a></li>
             <li v-show="user.id == 3"><a href="/users"> <i class="icon-user"></i>User Accounts </a></li>
         </ul>
     </nav>

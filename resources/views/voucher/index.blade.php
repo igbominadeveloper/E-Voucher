@@ -8,7 +8,7 @@
                         <div class="card-close">
                         </div>
                         <div class="card-header d-flex align-items-center">
-                            <a href="/vouchers/create"><button type="button" class="btn btn-primary pull-right">Create Voucher</button></a>
+                            <a href="/voucher/create"><button type="button" class="btn btn-primary pull-right">Create Voucher</button></a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

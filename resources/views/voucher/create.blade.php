@@ -1,18 +1,6 @@
 @extends('layout.master')
 @section('content')
 <section class="dashboard-header">
-    <div class="container-fluid">
-        <div class="row">
-            <ul class="nav nav-tabs text-center mr-auto ml-auto mb-4" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="front-tab" data-toggle="tab" href="#front" role="tab" aria-controls="front" aria-selected="true">Front</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="back-tab" data-toggle="tab" href="#back" role="tab" aria-controls="back" aria-selected="false">Back</a>
-                </li>
-            </ul>
-        </div>
-    </div>
     <div class="row">
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="front" role="tabpanel" aria-labelledby="front-tab">
@@ -161,7 +149,7 @@
                                             <input class="form-control" placeholder="Enter unit" type="text">
                                         </td>
                                         <td>
-                                            <input class="form-control" placeholder="Enter Amount in Naira" type="text">
+                                            <input class="form-control" placeholder="Enter Naira"  type="text">
                                         </td><td>
                                             <input class="form-control" placeholder="Enter Kobo" type="text">
                                         </td>
@@ -234,9 +222,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
+                <div class="container-fluid mt-5">
                     <div class="row">
-                        <div class="col-sm-9 mr-auto ml-auto">
+                        <div class="col-sm-9 mr-auto ml-auto mt-5">
                             <div class="card">
                                 <div class="card-header d-flex align-items-center flex-column">
                                     <h3>CERTIFICATE OF HONOUR</h3>
