@@ -13991,7 +13991,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Login_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Sidebar_vue__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Sidebar_vue__);
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -50562,7 +50561,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-primary w-100",
           attrs: { id: "login", disabled: _vm.errors.any() }
         },
         [_vm._v("Login")]
@@ -50666,7 +50665,7 @@ exports = module.exports = __webpack_require__(51)(false);
 
 
 // module
-exports.push([module.i, "\n.side-navbar[data-v-00467796]{\n    position: fixed;\n    height: 100vh;\n}\n", ""]);
+exports.push([module.i, "\n.side-navbar[data-v-00467796]{\n    position: fixed;\n    height: 100vh;\n    padding-top: 5rem;\n}\n", ""]);
 
 // exports
 

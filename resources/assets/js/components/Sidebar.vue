@@ -48,5 +48,6 @@
     .side-navbar{
         position: fixed;
         height: 100vh;
+        padding-top: 5rem;
     }
 </style>

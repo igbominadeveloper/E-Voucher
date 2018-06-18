@@ -16,7 +16,7 @@
       <span v-text="errors.get('password')" style="display: block;" v-if="errors.has('password')" class="is-invalid invalid-feedback"></span>
     </div>
 
-    <button id="login" class="btn btn-primary" :disabled="errors.any()">Login</button>
+    <button id="login" class="btn btn-primary w-100" :disabled="errors.any()">Login</button>
     <!-- This should be submit button but I replaced it with <a> for demo purposes-->
   </form>
 </template>

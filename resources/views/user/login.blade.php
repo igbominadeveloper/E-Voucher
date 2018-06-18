@@ -25,38 +25,22 @@
 <body>
 <div class="page login-page" id="app">
     <div class="container d-flex align-items-center">
-        <div class="form-holder has-shadow">
-          <div class="row">
-            <!-- Logo & Information Panel-->
-            <div class="col-lg-6">
-              <div class="info d-flex align-items-center">
-                <div class="content">
-                  <div class="logo">
-                    <img src="{{ asset('img/NCS.png') }}" alt="LOGO is here">
-                    <h1>E-Voucher Login</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="row w-100 mr-auto ml-auto">
             <!-- Form Panel    -->
-            <div class="col-lg-6 bg-white">
+            <div class="form-holder col-lg-6 bg-white mr-auto ml-auto has-shadow">
               <div class="form d-flex align-items-center">
-                  {{--<div class="logo">--}}
-                      {{--<img src="{{ asset('img/NCS.png') }}" alt="LOGO is here">--}}
-                      {{--<h1>E-Voucher Login</h1>--}}
-                  {{--</div>--}}
+                  <div class="logo mb-5 text-center">
+                      <img src="{{ asset('img/NCS.png') }}" alt="LOGO is here">
+                      <h1 class="mt-3">E-Voucher Login</h1>
+                  </div>
                   <div class="content">
                       <app-login></app-login>
-                </div>
+                  </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
         <div class="copyrights text-center">
-        <p>Design by <a href="http://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
-  <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-  </p>
         <p>All rights reserved</p> <span class="pull-right">Digify spaces (c) 2018</span>
   </div>
 </div>

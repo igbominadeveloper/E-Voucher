@@ -1858,7 +1858,7 @@ select option {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bg.jpg);
+  /*background: url(../img/bg.jpg);*/
   background-size: cover;
   -webkit-filter: blur(10px);
   filter: blur(10px);
@@ -1886,6 +1886,7 @@ select option {
   min-height: 70vh;
   padding: 40px;
   height: 100%;
+  flex-direction: column;
 }
 
 .login-page .form-holder div[class*='col-'] {
@@ -1918,6 +1919,7 @@ select option {
 .login-page .form-holder .form form {
   width: 100%;
   max-width: 400px;
+  margin: 10px auto;
 }
 
 .login-page .form-holder .form #login, .login-page .form-holder .form #register {
