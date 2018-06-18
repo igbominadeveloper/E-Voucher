@@ -43,3 +43,10 @@
             }
     }
 </script>
+
+<style scoped>
+    .side-navbar{
+        position: fixed;
+        height: 100vh;
+    }
+</style>

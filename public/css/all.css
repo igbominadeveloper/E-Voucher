@@ -237,6 +237,8 @@ table {
   width: calc(100% - 250px);
   min-height: calc(100vh - 70px);
   padding-bottom: 60px;
+  margin-left: auto !important;
+  margin-top: 22px;
 }
 
 .content-inner.active {

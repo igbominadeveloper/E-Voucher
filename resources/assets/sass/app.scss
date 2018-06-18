@@ -10,6 +10,12 @@
 
 //custom Styles
 
+header.header{
+  position: fixed;
+  width: 100%;
+  z-index: 10 !important;
+}
+
 .bottom-one{
   font-size:smaller;
 }
@@ -102,8 +108,12 @@ div.table{
   text-align: center;
 }
 
-.table-three{
+#table-three{
   margin: 20px auto;
+}
+
+#table-three th {
+  width: 158px;
 }
 
 

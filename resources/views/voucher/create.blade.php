@@ -267,63 +267,33 @@
                                             </tr>
                                             <tr>
                                                 <th>Prepared by</th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Checked by</th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Entered into Vote book</th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Passed by</th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Paid by</th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                         </table>
                                     </div>
