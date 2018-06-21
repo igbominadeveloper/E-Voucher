@@ -19,7 +19,7 @@
                                     </div>
                                 </div>
                                 <p>Dept. No: NCS/OD/EK/008/18 checked and passed for payment at
-                                    <select v-model="voucher.station">
+                                    <select v-model="voucher.station" @change="borderless()">
                                         <option>Akure</option>
                                         <option>Ado-Ekiti</option>
                                     </select>
@@ -72,7 +72,7 @@
                                                     <tr>
                                                         <th>S/Head</th>
                                                         <td>
-                                                            <select v-model="voucher.item">
+                                                            <select v-model="voucher.item" @change="borderless()">
                                                                 <option>Local Travels & Transport</option>
                                                                 <option>Feeding</option>
                                                                 <option>Accommodation</option>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="payee form-group">
                                     <label for="payee">Payee: </label>
-                                    <select v-model="voucher.officer" class="form-control">
+                                    <select v-model="voucher.officer" class="form-control" @change="borderless()">
                                         <option v-for="officer in officers">{{ officer.name }}</option>
                                     </select><br>
                                     <label for="address">Address:</label>
@@ -137,7 +137,7 @@
                                                 <input class="form-control" placeholder="Enter unit" type="text" v-model="voucher.unit">
                                             </td>
                                             <td>
-                                                <input class="form-control" placeholder="Enter Naira"  type="text" v-model="voucher.amount">
+                                                <input class="form-control" placeholder="Enter Naira"  type="text" v-model.lazy="voucher.amount">
                                             </td>
                                             <td>0</td>
                                         </tr>
@@ -183,9 +183,9 @@
                                             <p class="text-justify">I certify the above amount is correct and was incurred under the authority of quoted; that the service has been duly performed; that the rate/price charged is according to regulations/contract is fair and reasonable: that the amount of <span class="text-underline"> Thirty-six thousand Naira only
                                                 {{ total }}
                                             </span> may be paid under the classification quoted</p>
-                                            <p class="d-inline-flex">Place:{{ voucher.station }} </p>
-                                            <p class="d-inline-flex">Designation:
-                                                <select v-model="payer.designation">
+                                            <p class="d-inline-flex">Place:  {{ voucher.station }} </p>
+                                            <p class="d-inline-flex ml-4">Designation:
+                                                <select v-model="payer.designation" @change="borderless()">
                                                     <option>CAC</option>
                                                     <option>AC</option>
                                                 </select>
@@ -197,13 +197,8 @@
                                 <div class="footnotes">
 
                                     <p>N {{ total }}</p>
-                                    <p>{{ now() }}</p>
-                                    <p>
-                                        <select v-model="payer.station">
-                                            <option>Akure</option>
-                                            <option>Ado-Ekiti</option>
-                                        </select>
-                                    </p>
+                                    <p v-text="now()"></p>
+                                    <p v-text="voucher.station"></p>
                                 </div>
                             </div>
                         </div>
@@ -326,6 +321,9 @@
                 let year = date.getFullYear();
                 let day = date.getDate();
                 return day+'-'+month+'-'+year;
+            },
+            borderless(){
+                event.target.style.border = 'none';
             }
         },
         mounted(){

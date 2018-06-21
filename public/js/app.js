@@ -51517,11 +51517,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -51555,6 +51550,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var year = date.getFullYear();
             var day = date.getDate();
             return day + '-' + month + '-' + year;
+        },
+        borderless: function borderless() {
+            event.target.style.border = 'none';
         }
     },
     mounted: function mounted() {
@@ -51614,23 +51612,28 @@ var render = function() {
                           }
                         ],
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.voucher,
-                              "station",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.voucher,
+                                "station",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              _vm.borderless()
+                            }
+                          ]
                         }
                       },
                       [
@@ -51680,26 +51683,34 @@ var render = function() {
                                       }
                                     ],
                                     on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.voucher,
-                                          "item",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      }
+                                      change: [
+                                        function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.voucher,
+                                            "item",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        },
+                                        function($event) {
+                                          _vm.borderless()
+                                        }
+                                      ]
                                     }
                                   },
                                   [
@@ -51754,23 +51765,28 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.voucher,
-                              "officer",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.voucher,
+                                "officer",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              _vm.borderless()
+                            }
+                          ]
                         }
                       },
                       _vm._l(_vm.officers, function(officer) {
@@ -51870,9 +51886,10 @@ var render = function() {
                                 directives: [
                                   {
                                     name: "model",
-                                    rawName: "v-model",
+                                    rawName: "v-model.lazy",
                                     value: _vm.voucher.amount,
-                                    expression: "voucher.amount"
+                                    expression: "voucher.amount",
+                                    modifiers: { lazy: true }
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -51882,10 +51899,7 @@ var render = function() {
                                 },
                                 domProps: { value: _vm.voucher.amount },
                                 on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
+                                  change: function($event) {
                                     _vm.$set(
                                       _vm.voucher,
                                       "amount",
@@ -51944,10 +51958,10 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "d-inline-flex" }, [
-                          _vm._v("Place:" + _vm._s(_vm.voucher.station) + " ")
+                          _vm._v("Place:  " + _vm._s(_vm.voucher.station) + " ")
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "d-inline-flex" }, [
+                        _c("p", { staticClass: "d-inline-flex ml-4" }, [
                           _vm._v(
                             "Designation:\n                                            "
                           ),
@@ -51963,24 +51977,29 @@ var render = function() {
                                 }
                               ],
                               on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.payer,
-                                    "designation",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.payer,
+                                      "designation",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    _vm.borderless()
+                                  }
+                                ]
                               }
                             },
                             [
@@ -52005,47 +52024,11 @@ var render = function() {
                   _c("div", { staticClass: "footnotes" }, [
                     _c("p", [_vm._v("N " + _vm._s(_vm.total))]),
                     _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.now()))]),
+                    _c("p", { domProps: { textContent: _vm._s(_vm.now()) } }),
                     _vm._v(" "),
-                    _c("p", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.payer.station,
-                              expression: "payer.station"
-                            }
-                          ],
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.payer,
-                                "station",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", [_vm._v("Akure")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("Ado-Ekiti")])
-                        ]
-                      )
-                    ])
+                    _c("p", {
+                      domProps: { textContent: _vm._s(_vm.voucher.station) }
+                    })
                   ])
                 ])
               ])
