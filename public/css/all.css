@@ -238,7 +238,7 @@ table {
   min-height: calc(100vh - 70px);
   padding-bottom: 60px;
   margin-left: auto !important;
-  margin-top: 22px;
+  margin-top: 60px;
 }
 
 .content-inner.active {
@@ -1629,11 +1629,11 @@ section.dashboard-counts div[class*='col-']:last-of-type .item {
 */
 footer.main-footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
   background: #2f333e;
   color: #fff;
   padding: 20px 10px;
+  z-index: 10;
 }
 
 footer.main-footer a {

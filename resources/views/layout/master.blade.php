@@ -22,16 +22,14 @@
   </head>
   <body>
   <div class="page" id="app">
-      <app-body>
       @include('layout.partials.header')
-          <div class="page-content d-flex align-items-stretch">
-            <app-sidebar></app-sidebar>
-              <div class="content-inner">
-                @yield('content')
-                @include('layout.partials.footer')
-              </div>
+      <div class="page-content d-flex align-items-stretch">
+        <app-sidebar></app-sidebar>
+          <div class="content-inner">
+            @yield('content')
           </div>
-      </app-body>
+      </div>
+      @include('layout.partials.footer')
   </div>
     <!-- JavaScript files-->
     <script src="/js/app.js"></script>

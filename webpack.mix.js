@@ -24,3 +24,5 @@ mix.styles([
     'resources/assets/vendor/font-awesome/css/font-awesome.min.css',
     'resources/assets/css/style.default.css'
 ], 'public/css/all.css');
+
+mix.browserSync(process.env.MIX_SENTRY_DSN_PUBLIC);

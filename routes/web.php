@@ -60,7 +60,7 @@ Route::get('/officer',[
     'uses' => 'OfficerController@index',
     'as' => 'officers',
     'middleware' => ['role','auth'],
-    'roles' => ['administrator','accountant']
+    'roles' => ['administrator','accountant','assistant']
 ]);
 
 Route::post('/officer',[

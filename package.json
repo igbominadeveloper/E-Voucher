@@ -12,15 +12,19 @@
     "devDependencies": {
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
+        "browser-sync": "^2.24.4",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
+        "popper.js": "^1.12",
         "vue": "^2.5.7"
     },
     "dependencies": {
         "moment": "^2.22.2",
+        "sweetalert": "^2.1.0",
         "vue-router": "^3.0.1",
+        "vue-sweetalert": "^0.1.18",
         "vuetify": "^1.0.19"
     }
 }

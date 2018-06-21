@@ -8,7 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+window.swal = require('sweetalert');
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -16,34 +16,13 @@ window.Vue = require('vue');
  */
 
 
-//Voucher Component
-Vue.component('app-voucher',{
-   data(){
-       return {
-            officers:{},
-            voucher:{
-                amount:0,
-                description:'',
-                officer:''
-            },
-            errors: new Errors(),
-       }
-   },
-    mounted(){
-       axios.get('/officers')
-           .then(response => {
-               this.officers = response.data;
-               console.log(this.officers);
-           })
-           .catch(error => console.log(error.response.data))
-    }
-});
-
 import DashboardCounter from './components/Counter.vue';
 
 import Login from './components/Login.vue';
 
 import Sidebar from './components/Sidebar.vue';
+
+import Voucher from './components/Voucher.vue';
 
 const app = new Vue({
     el: '#app',
@@ -56,7 +35,8 @@ const app = new Vue({
     components:{
         'app-counter' : DashboardCounter,
         'app-sidebar' : Sidebar,
-        'app-login' : Login
+        'app-login' : Login,
+        'app-voucher': Voucher
     },
     methods:{
         createAccount(){
