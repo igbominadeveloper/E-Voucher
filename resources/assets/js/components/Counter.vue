@@ -11,7 +11,7 @@
                                 <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-violet"></div>
                             </div>
                         </div>
-                        <div class="number"><strong>{{ count-50 }}</strong></div>
+                        <div class="number"><strong>{{ count(officers) }}</strong></div>
                     </div>
                 </div>
                 <!-- Item -->
@@ -20,10 +20,10 @@
                         <div class="icon bg-red"><i class="icon-padnote"></i></div>
                         <div class="title"><span>Total<br>Vouchers</span>
                             <div class="progress">
-                                <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+                                <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
                             </div>
                         </div>
-                        <div class="number"><strong>{{ count-40 }}</strong></div>
+                        <div class="number"><strong>{{ count(vouchers) }}</strong></div>
                     </div>
                 </div>
                 <!-- Item -->
@@ -35,7 +35,7 @@
                                 <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-green"></div>
                             </div>
                         </div>
-                        <div class="number"><strong>{{ count-30 }}</strong></div>
+                        <div class="number"><strong>{{ count(vouchers) }}</strong></div>
                     </div>
                 </div>
                 <!-- Item -->
@@ -47,7 +47,7 @@
                                 <div role="progressbar" style="width: 50%; height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-orange"></div>
                             </div>
                         </div>
-                        <div class="number"><strong>{{ count-20 }}</strong></div>
+                        <div class="number"><strong>{{ count(vouchers) }}</strong></div>
                     </div>
                 </div>
             </div>
@@ -58,14 +58,11 @@
 <script>
 
 export default{
-
-    data(){
-        return {
-            count: 2000
+    props:['officers','vouchers'],
+    methods:{
+        count(model){
+            return model.length;
         }
-    },
-    mounted(){
-
     }
 }
 </script>

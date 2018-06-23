@@ -2,7 +2,8 @@
     <section class="dashboard-header">
         <div class="row">
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="front" role="tabpanel" aria-labelledby="front-tab">
+                <form @submit.prevent="createVoucher">
+                    <div class="tab-pane fade show active" id="front" role="tabpanel" aria-labelledby="front-tab">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-12">
@@ -116,7 +117,7 @@
                                         <option v-for="officer in officers">{{ officer.name }}</option>
                                     </select><br>
                                     <label for="address">Address:</label>
-                                    <input type="text" class="form-control" placeholder="Enter Address">
+                                    <input type="text" class="form-control" placeholder="Enter Payee's Address">
                                 </div>
                                 <div class="form-group">
                                     <table class="table-bordered" id="table-one">
@@ -185,7 +186,7 @@
                                             </span> may be paid under the classification quoted</p>
                                             <p class="d-inline-flex">Place:  {{ voucher.station }} </p>
                                             <p class="d-inline-flex ml-4">Designation:
-                                                <select v-model="payer.designation" @change="borderless()">
+                                                <select v-model="voucher.designation" @change="borderless()">
                                                     <option>CAC</option>
                                                     <option>AC</option>
                                                 </select>
@@ -195,7 +196,6 @@
                                     </div>
                                 </div>
                                 <div class="footnotes">
-
                                     <p>N {{ total }}</p>
                                     <p v-text="now()"></p>
                                     <p v-text="voucher.station"></p>
@@ -284,6 +284,8 @@
                         </div>
                     </div>
                 </div>
+                    <button class="btn btn-primary" type="submit">Create Voucher</button>
+                </form>
             </div>
         </div>
     </section>
@@ -294,23 +296,22 @@
         data(){
             return {
                 officers:{},
-                payer:{
-                    designation:'',
-                    station:''
-                },
                 voucher:{
                     item:'',
                     amount: 0,
                     unit: 0,
                     description:'',
                     officer:'',
-                    station:''
+                    station:'',
+                    designation:''
                 },
+                user:{}
             }
         },
         computed:{
             total: function(){
                 let vm = this;
+                this.$data.total = vm.voucher.unit * vm.voucher.amount;
                 return vm.voucher.unit * vm.voucher.amount;
             }
         },
@@ -322,8 +323,18 @@
                 let day = date.getDate();
                 return day+'-'+month+'-'+year;
             },
+
             borderless(){
                 event.target.style.border = 'none';
+            },
+
+            createVoucher(){
+                axios.post('/voucher',this.$data)
+                    .then(response => swal("success",response.data,"success"))
+                    .catch(error => swal(error.response.data))
+            },
+            assignUser(data){
+                this.user = data;
             }
         },
         mounted(){
@@ -334,7 +345,14 @@
                         officer.name = officer.firstName+' '+officer.lastName;
                     });
                 })
-                .catch(error => swal(error.response.data))
+                .catch(error => swal(error.response.data));
+        },
+        created(){
+            let vm = this;
+            this.$bus.$on('getUser',function(data) {
+                console.log('Inside the event listener'+ data);
+                vm.assignUser(data);
+            });
         }
     }
 </script>

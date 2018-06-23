@@ -15,7 +15,15 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        return view('voucher.index', ['page' => 'Vouchers','vouchers' => Voucher::all()]);
+        $vouchers = Voucher::all();
+
+        return view('voucher.index', ['page' => 'Vouchers','vouchers' => $vouchers]);
+    }
+
+    public function all()
+    {
+        $vouchers = Voucher::all();
+        return $vouchers;
     }
 
     /**
@@ -38,12 +46,14 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'user_id' => 'required',
-            'officer' => 'required',
-            'amount' => 'required'
+            'user.id' => 'required',
+            'voucher.officer' => 'required',
+            'voucher.unit' => 'required',
+            'voucher.amount' => 'required'
         ]);
 
-        Voucher::create($request->only('officer_id','amount','description'));
+        return response('Data Validated',200);
+//        Voucher::create($request->only('officer_id','amount','description'));
 
 
     }

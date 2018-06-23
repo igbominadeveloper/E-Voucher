@@ -32,7 +32,7 @@
                 password: '',
                 response:{},
 //                disabled:false,
-                errors: new Errors(),
+                errors: new Errors()
             }
         },
         methods: {
@@ -42,6 +42,7 @@
                         this.response = response.data;
                         if (this.response.success) location.reload();
                         if (this.response.failure) {
+                            swal("Login Failed","error");
                             delete this.email;
                             delete this.password;
                         }

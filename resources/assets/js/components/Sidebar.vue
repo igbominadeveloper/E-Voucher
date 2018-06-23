@@ -5,14 +5,14 @@
             <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
                 <h1 class="h4">{{ user.name }}</h1>
-                <p>{{ role.role }}</p>
+                <p>{{ ucfirst(role[0].role) }}</p>
             </div>
         </div>
         <!-- Sidebar Navidation Menus-->
         <span class="heading">Main</span>
         <ul class="list-unstyled">
-            <li class="active"><a href="/home"> <i class="icon-home"></i>Dashboard </a></li>
-            <li><a href="/voucher"> <i class="icon-bill"></i>Vouchers </a></li>
+            <li class="active"><a href="/home"> <i class="icon-home"></i>Vouchers </a></li>
+            <li><a href="/profile"> <i class="icon-bill"></i>My Profile</a></li>
             <li v-show="user.id == 3"><a href="/officer"> <i class="icon-grid"></i>Officers </a></li>
             <li v-show="user.id == 3"><a href="/users"> <i class="icon-user"></i>User Accounts </a></li>
         </ul>
@@ -23,24 +23,30 @@
     export default{
         data(){
             return {
-                user:{},
+                user: {},
                 role:{},
-                disabled:false,
+                disabled: false,
             }
         },
-        mounted(){
+        methods:{
+            ucfirst(string){
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            },
+            sendUser(){
+                this.$bus.$emit('getUser',this.user);
+                console.log('sending user now'+ this.user);
+            }
+        },
+        created(){
+            let vm = this;
             axios.get('/user')
                 .then(response => {
-                    this.user = response.data;
+                        this.user = response.data;
+                        this.role = this.user.roles;
+                        this.sendUser();
                 })
-                .catch(error => console.log(error.response.data));
-
-            axios.get('/user/role')
-                    .then(response => {
-                        this.role = response.data;
-                    })
-                    .catch(error => console.log(error.response.data))
-            }
+                .catch(error => console.log('error'+error));
+        }
     }
 </script>
 

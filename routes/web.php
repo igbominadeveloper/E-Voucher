@@ -21,15 +21,7 @@ Route::get('/', function(){
 
 Route::get('/user', function (Request $request){
 
-    $user = \App\User::where('id',$request->user()->id)->first();
-
-    return $user;
-
-});
-
-Route::get('/user/role', function (Request $request){
-
-    $user = \App\User::with('roles')->where('id',$request->user()->id)->first();
+    $user = \App\User::where('id',$request->user()->id)->with('roles')->first();
 
     return $user;
 
@@ -70,7 +62,7 @@ Route::post('/officer',[
 ]);
 
 Route::get('/home', [
-    'uses' => 'SessionController@home',
+    'uses' => 'VoucherController@index',
     'as' => 'home',
     'middleware' => 'auth',
 ]);

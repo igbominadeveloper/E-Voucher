@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     $user = User::where('id', $request->user()->id)->first();
     return $user->roles()->get();
 });
+
+Route::get('/voucher','VoucherController@all');

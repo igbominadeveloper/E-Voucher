@@ -14087,11 +14087,15 @@ window.swal = __webpack_require__(41);
 
 
 
+Vue.prototype.$bus = new Vue({});
+
 var app = new Vue({
     el: '#app',
     data: {
         account: {},
-        officer: {},
+        officers: {},
+        user: {},
+        vouchers: {},
         response: {},
         error: {}
     },
@@ -14101,29 +14105,44 @@ var app = new Vue({
         'app-login': __WEBPACK_IMPORTED_MODULE_1__components_Login_vue___default.a,
         'app-voucher': __WEBPACK_IMPORTED_MODULE_3__components_Voucher_vue___default.a
     },
+    created: function created() {
+        var _this = this;
+
+        axios.get('/officer').then(function (response) {
+            return _this.officers = response.data;
+        }).catch(function (error) {
+            return console.log(error.response.data);
+        });
+        axios.get('/api/voucher').then(function (response) {
+            return _this.vouchers = response.data;
+        }).catch(function (error) {
+            return console.log(error.response.data);
+        });
+    },
+
     methods: {
         createAccount: function createAccount() {
-            var _this = this;
+            var _this2 = this;
 
             axios.post('/users/register', this.account).then(function (response) {
                 console.log(response.data);
-                _this.response = response.data;
-                _this.account = '';
-                location.reload();
-            }).catch(function (error) {
-                _this.error = error.response.data;
-            });
-        },
-        createOfficer: function createOfficer() {
-            var _this2 = this;
-
-            axios.post('/officers', this.officer).then(function (response) {
-                console.log(response.data);
                 _this2.response = response.data;
-                _this2.officer = '';
+                _this2.account = '';
                 location.reload();
             }).catch(function (error) {
                 _this2.error = error.response.data;
+            });
+        },
+        createOfficer: function createOfficer() {
+            var _this3 = this;
+
+            axios.post('/officers', this.officer).then(function (response) {
+                console.log(response.data);
+                _this3.response = response.data;
+                _this3.officer = '';
+                location.reload();
+            }).catch(function (error) {
+                _this3.error = error.response.data;
             });
         }
     }
@@ -50062,12 +50081,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            count: 2000
-        };
-    },
-    mounted: function mounted() {}
+    props: ['officers', 'vouchers'],
+    methods: {
+        count: function count(model) {
+            return model.length;
+        }
+    }
 });
 
 /***/ }),
@@ -50088,7 +50107,7 @@ var render = function() {
             _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "number" }, [
-              _c("strong", [_vm._v(_vm._s(_vm.count - 50))])
+              _c("strong", [_vm._v(_vm._s(_vm.count(_vm.officers)))])
             ])
           ])
         ]),
@@ -50100,7 +50119,7 @@ var render = function() {
             _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "number" }, [
-              _c("strong", [_vm._v(_vm._s(_vm.count - 40))])
+              _c("strong", [_vm._v(_vm._s(_vm.count(_vm.vouchers)))])
             ])
           ])
         ]),
@@ -50112,7 +50131,7 @@ var render = function() {
             _vm._m(5),
             _vm._v(" "),
             _c("div", { staticClass: "number" }, [
-              _c("strong", [_vm._v(_vm._s(_vm.count - 30))])
+              _c("strong", [_vm._v(_vm._s(_vm.count(_vm.vouchers)))])
             ])
           ])
         ]),
@@ -50124,7 +50143,7 @@ var render = function() {
             _vm._m(7),
             _vm._v(" "),
             _c("div", { staticClass: "number" }, [
-              _c("strong", [_vm._v(_vm._s(_vm.count - 20))])
+              _c("strong", [_vm._v(_vm._s(_vm.count(_vm.vouchers)))])
             ])
           ])
         ])
@@ -50183,7 +50202,7 @@ var staticRenderFns = [
           staticStyle: { width: "70%", height: "4px" },
           attrs: {
             role: "progressbar",
-            "aria-valuenow": "70",
+            "aria-valuenow": "2",
             "aria-valuemin": "0",
             "aria-valuemax": "100"
           }
@@ -50359,6 +50378,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.response = response.data;
                 if (_this.response.success) location.reload();
                 if (_this.response.failure) {
+                    swal("Login Failed", "error");
                     delete _this.email;
                     delete _this.password;
                 }
@@ -51036,19 +51056,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             disabled: false
         };
     },
-    mounted: function mounted() {
+
+    methods: {
+        ucfirst: function ucfirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+        sendUser: function sendUser() {
+            this.$bus.$emit('getUser', this.user);
+            console.log('sending user now' + this.user);
+        }
+    },
+    created: function created() {
         var _this = this;
 
+        var vm = this;
         axios.get('/user').then(function (response) {
             _this.user = response.data;
+            _this.role = _this.user.roles;
+            _this.sendUser();
         }).catch(function (error) {
-            return console.log(error.response.data);
-        });
-
-        axios.get('/user/role').then(function (response) {
-            _this.role = response.data;
-        }).catch(function (error) {
-            return console.log(error.response.data);
+            return console.log('error' + error);
         });
     }
 });
@@ -51068,7 +51095,7 @@ var render = function() {
       _c("div", { staticClass: "title" }, [
         _c("h1", { staticClass: "h4" }, [_vm._v(_vm._s(_vm.user.name))]),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.role.role))])
+        _c("p", [_vm._v(_vm._s(_vm.ucfirst(_vm.role[0].role)))])
       ])
     ]),
     _vm._v(" "),
@@ -51130,7 +51157,7 @@ var staticRenderFns = [
     return _c("li", { staticClass: "active" }, [
       _c("a", { attrs: { href: "/home" } }, [
         _c("i", { staticClass: "icon-home" }),
-        _vm._v("Dashboard ")
+        _vm._v("Vouchers ")
       ])
     ])
   },
@@ -51139,9 +51166,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", [
-      _c("a", { attrs: { href: "/voucher" } }, [
+      _c("a", { attrs: { href: "/profile" } }, [
         _c("i", { staticClass: "icon-bill" }),
-        _vm._v("Vouchers ")
+        _vm._v("My Profile")
       ])
     ])
   },
@@ -51517,29 +51544,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             officers: {},
-            payer: {
-                designation: '',
-                station: ''
-            },
             voucher: {
                 item: '',
                 amount: 0,
                 unit: 0,
                 description: '',
                 officer: '',
-                station: ''
-            }
+                station: '',
+                designation: ''
+            },
+            user: {}
         };
     },
 
     computed: {
         total: function total() {
             var vm = this;
+            this.$data.total = vm.voucher.unit * vm.voucher.amount;
             return vm.voucher.unit * vm.voucher.amount;
         }
     },
@@ -51553,6 +51581,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         borderless: function borderless() {
             event.target.style.border = 'none';
+        },
+        createVoucher: function createVoucher() {
+            axios.post('/voucher', this.$data).then(function (response) {
+                return swal("success", response.data, "success");
+            }).catch(function (error) {
+                return swal(error.response.data);
+            });
+        },
+        assignUser: function assignUser(data) {
+            this.user = data;
         }
     },
     mounted: function mounted() {
@@ -51565,6 +51603,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }).catch(function (error) {
             return swal(error.response.data);
+        });
+    },
+    created: function created() {
+        var vm = this;
+        this.$bus.$on('getUser', function (data) {
+            console.log('Inside the event listener' + data);
+            vm.assignUser(data);
         });
     }
 });
@@ -51581,96 +51626,417 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "tab-content", attrs: { id: "myTabContent" } }, [
         _c(
-          "div",
+          "form",
           {
-            staticClass: "tab-pane fade show active",
-            attrs: {
-              id: "front",
-              role: "tabpanel",
-              "aria-labelledby": "front-tab"
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.createVoucher($event)
+              }
             }
           },
           [
-            _c("div", { staticClass: "container-fluid" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm-12" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Dept. No: NCS/OD/EK/008/18 checked and passed for payment at\n                                "
-                    ),
-                    _c(
-                      "select",
-                      {
-                        directives: [
+            _c(
+              "div",
+              {
+                staticClass: "tab-pane fade show active",
+                attrs: {
+                  id: "front",
+                  role: "tabpanel",
+                  "aria-labelledby": "front-tab"
+                }
+              },
+              [
+                _c("div", { staticClass: "container-fluid" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Dept. No: NCS/OD/EK/008/18 checked and passed for payment at\n                                "
+                        ),
+                        _c(
+                          "select",
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.voucher.station,
-                            expression: "voucher.station"
-                          }
-                        ],
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.voucher,
-                                "station",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                            function($event) {
-                              _vm.borderless()
-                            }
-                          ]
-                        }
-                      },
-                      [
-                        _c("option", [_vm._v("Akure")]),
-                        _vm._v(" "),
-                        _c("option", [_vm._v("Ado-Ekiti")])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "upper-body d-flex" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "tables" }, [
-                      _c("div", { staticClass: "group" }, [
-                        _vm._m(2),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "table-two" }, [
-                          _c("table", { staticClass: "table-bordered" }, [
-                            _c("tr", [
-                              _c("th", [_vm._v("Station")]),
-                              _vm._v(" "),
-                              _c("td", {
-                                domProps: {
-                                  textContent: _vm._s(_vm.voucher.station)
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.voucher.station,
+                                expression: "voucher.station"
+                              }
+                            ],
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.voucher,
+                                    "station",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  _vm.borderless()
                                 }
-                              })
+                              ]
+                            }
+                          },
+                          [
+                            _c("option", [_vm._v("Akure")]),
+                            _vm._v(" "),
+                            _c("option", [_vm._v("Ado-Ekiti")])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "upper-body d-flex" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "tables" }, [
+                          _c("div", { staticClass: "group" }, [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "table-two" }, [
+                              _c("table", { staticClass: "table-bordered" }, [
+                                _c("tr", [
+                                  _c("th", [_vm._v("Station")]),
+                                  _vm._v(" "),
+                                  _c("td", {
+                                    domProps: {
+                                      textContent: _vm._s(_vm.voucher.station)
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _vm._m(4),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("S/Head")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.voucher.item,
+                                            expression: "voucher.item"
+                                          }
+                                        ],
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                _vm.voucher,
+                                                "item",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            },
+                                            function($event) {
+                                              _vm.borderless()
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      [
+                                        _c("option", [
+                                          _vm._v("Local Travels & Transport")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("option", [_vm._v("Feeding")]),
+                                        _vm._v(" "),
+                                        _c("option", [_vm._v("Accommodation")]),
+                                        _vm._v(" "),
+                                        _c("option", [_vm._v("Health-Care")])
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "table-three" }, [
+                            _c("table", { staticClass: "table-bordered" }, [
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c("tbody", [
+                                _c("td", [_vm._v(_vm._s(_vm.now()))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(_vm.total))])
+                              ])
                             ]),
                             _vm._v(" "),
-                            _vm._m(3),
+                            _vm._m(6)
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "payee form-group" }, [
+                        _c("label", { attrs: { for: "payee" } }, [
+                          _vm._v("Payee: ")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.voucher.officer,
+                                expression: "voucher.officer"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.voucher,
+                                    "officer",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  _vm.borderless()
+                                }
+                              ]
+                            }
+                          },
+                          _vm._l(_vm.officers, function(officer) {
+                            return _c("option", [_vm._v(_vm._s(officer.name))])
+                          })
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "address" } }, [
+                          _vm._v("Address:")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter Payee's Address"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table-bordered",
+                            attrs: { id: "table-one" }
+                          },
+                          [
+                            _vm._m(7),
                             _vm._v(" "),
-                            _vm._m(4),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("S/Head")]),
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("td", [_vm._v(_vm._s(_vm.now()))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.voucher.description,
+                                        expression: "voucher.description"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      placeholder: "Enter Description",
+                                      type: "text"
+                                    },
+                                    domProps: {
+                                      value: _vm.voucher.description
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.voucher,
+                                          "description",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.voucher.unit,
+                                        expression: "voucher.unit"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      placeholder: "Enter unit",
+                                      type: "text"
+                                    },
+                                    domProps: { value: _vm.voucher.unit },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.voucher,
+                                          "unit",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model.lazy",
+                                        value: _vm.voucher.amount,
+                                        expression: "voucher.amount",
+                                        modifiers: { lazy: true }
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      placeholder: "Enter Naira",
+                                      type: "text"
+                                    },
+                                    domProps: { value: _vm.voucher.amount },
+                                    on: {
+                                      change: function($event) {
+                                        _vm.$set(
+                                          _vm.voucher,
+                                          "amount",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("0")])
+                              ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("tr", [
+                                _c("td"),
+                                _vm._v(" "),
+                                _c("td", [_vm._v("Amount in words")]),
+                                _vm._v(" "),
+                                _vm._m(8),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("b", [_vm._v(_vm._s(_vm.total))])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(9)
+                              ])
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "bottom-one d-flex" }, [
+                        _vm._m(10),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "card certificate col-lg-6" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "text-bold mt-1 pt-3 card-title text-center"
+                              },
+                              [_vm._v("CERTIFICATE")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("p", { staticClass: "text-justify" }, [
+                                _vm._v(
+                                  "I certify the above amount is correct and was incurred under the authority of quoted; that the service has been duly performed; that the rate/price charged is according to regulations/contract is fair and reasonable: that the amount of "
+                                ),
+                                _c("span", { staticClass: "text-underline" }, [
+                                  _vm._v(
+                                    " Thirty-six thousand Naira only\n                                            " +
+                                      _vm._s(_vm.total) +
+                                      "\n                                        "
+                                  )
+                                ]),
+                                _vm._v(
+                                  " may be paid under the classification quoted"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "d-inline-flex" }, [
+                                _vm._v(
+                                  "Place:  " + _vm._s(_vm.voucher.station) + " "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "d-inline-flex ml-4" }, [
+                                _vm._v(
+                                  "Designation:\n                                            "
+                                ),
                                 _c(
                                   "select",
                                   {
@@ -51678,8 +52044,8 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.voucher.item,
-                                        expression: "voucher.item"
+                                        value: _vm.voucher.designation,
+                                        expression: "voucher.designation"
                                       }
                                     ],
                                     on: {
@@ -51701,7 +52067,7 @@ var render = function() {
                                             })
                                           _vm.$set(
                                             _vm.voucher,
-                                            "item",
+                                            "designation",
                                             $event.target.multiple
                                               ? $$selectedVal
                                               : $$selectedVal[0]
@@ -51714,327 +52080,49 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _c("option", [
-                                      _vm._v("Local Travels & Transport")
-                                    ]),
+                                    _c("option", [_vm._v("CAC")]),
                                     _vm._v(" "),
-                                    _c("option", [_vm._v("Feeding")]),
-                                    _vm._v(" "),
-                                    _c("option", [_vm._v("Accommodation")]),
-                                    _vm._v(" "),
-                                    _c("option", [_vm._v("Health-Care")])
+                                    _c("option", [_vm._v("AC")])
                                   ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "text-justify" }, [
+                                _vm._v(
+                                  "received from the Federal Government of Nigeria the sum of Thirty-Six thousand Naira " +
+                                    _vm._s(_vm.total) +
+                                    " and Zero kobo, in full settlement of the Account"
                                 )
                               ])
                             ])
-                          ])
-                        ])
+                          ]
+                        )
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "table-three" }, [
-                        _c("table", { staticClass: "table-bordered" }, [
-                          _vm._m(5),
-                          _vm._v(" "),
-                          _c("tbody", [
-                            _c("td", [_vm._v(_vm._s(_vm.now()))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.total))])
-                          ])
-                        ]),
+                      _c("div", { staticClass: "footnotes" }, [
+                        _c("p", [_vm._v("N " + _vm._s(_vm.total))]),
                         _vm._v(" "),
-                        _vm._m(6)
+                        _c("p", {
+                          domProps: { textContent: _vm._s(_vm.now()) }
+                        }),
+                        _vm._v(" "),
+                        _c("p", {
+                          domProps: { textContent: _vm._s(_vm.voucher.station) }
+                        })
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "payee form-group" }, [
-                    _c("label", { attrs: { for: "payee" } }, [
-                      _vm._v("Payee: ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.voucher.officer,
-                            expression: "voucher.officer"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.voucher,
-                                "officer",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                            function($event) {
-                              _vm.borderless()
-                            }
-                          ]
-                        }
-                      },
-                      _vm._l(_vm.officers, function(officer) {
-                        return _c("option", [_vm._v(_vm._s(officer.name))])
-                      })
-                    ),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "address" } }, [
-                      _vm._v("Address:")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Enter Address" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "table-bordered",
-                        attrs: { id: "table-one" }
-                      },
-                      [
-                        _vm._m(7),
-                        _vm._v(" "),
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("td", [_vm._v(_vm._s(_vm.now()))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.voucher.description,
-                                    expression: "voucher.description"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  placeholder: "Enter Description",
-                                  type: "text"
-                                },
-                                domProps: { value: _vm.voucher.description },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.voucher,
-                                      "description",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.voucher.unit,
-                                    expression: "voucher.unit"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  placeholder: "Enter unit",
-                                  type: "text"
-                                },
-                                domProps: { value: _vm.voucher.unit },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.voucher,
-                                      "unit",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model.lazy",
-                                    value: _vm.voucher.amount,
-                                    expression: "voucher.amount",
-                                    modifiers: { lazy: true }
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  placeholder: "Enter Naira",
-                                  type: "text"
-                                },
-                                domProps: { value: _vm.voucher.amount },
-                                on: {
-                                  change: function($event) {
-                                    _vm.$set(
-                                      _vm.voucher,
-                                      "amount",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("0")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td"),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Amount in words")]),
-                            _vm._v(" "),
-                            _vm._m(8),
-                            _vm._v(" "),
-                            _c("td", [_c("b", [_vm._v(_vm._s(_vm.total))])]),
-                            _vm._v(" "),
-                            _vm._m(9)
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "bottom-one d-flex" }, [
-                    _vm._m(10),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card certificate col-lg-6" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "text-bold mt-1 pt-3 card-title text-center"
-                        },
-                        [_vm._v("CERTIFICATE")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("p", { staticClass: "text-justify" }, [
-                          _vm._v(
-                            "I certify the above amount is correct and was incurred under the authority of quoted; that the service has been duly performed; that the rate/price charged is according to regulations/contract is fair and reasonable: that the amount of "
-                          ),
-                          _c("span", { staticClass: "text-underline" }, [
-                            _vm._v(
-                              " Thirty-six thousand Naira only\n                                            " +
-                                _vm._s(_vm.total) +
-                                "\n                                        "
-                            )
-                          ]),
-                          _vm._v(" may be paid under the classification quoted")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "d-inline-flex" }, [
-                          _vm._v("Place:  " + _vm._s(_vm.voucher.station) + " ")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "d-inline-flex ml-4" }, [
-                          _vm._v(
-                            "Designation:\n                                            "
-                          ),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.payer.designation,
-                                  expression: "payer.designation"
-                                }
-                              ],
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.payer,
-                                      "designation",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  },
-                                  function($event) {
-                                    _vm.borderless()
-                                  }
-                                ]
-                              }
-                            },
-                            [
-                              _c("option", [_vm._v("CAC")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("AC")])
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-justify" }, [
-                          _vm._v(
-                            "received from the Federal Government of Nigeria the sum of Thirty-Six thousand Naira " +
-                              _vm._s(_vm.total) +
-                              " and Zero kobo, in full settlement of the Account"
-                          )
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "footnotes" }, [
-                    _c("p", [_vm._v("N " + _vm._s(_vm.total))]),
-                    _vm._v(" "),
-                    _c("p", { domProps: { textContent: _vm._s(_vm.now()) } }),
-                    _vm._v(" "),
-                    _c("p", {
-                      domProps: { textContent: _vm._s(_vm.voucher.station) }
-                    })
                   ])
-                ])
-              ])
-            ]),
+                ]),
+                _vm._v(" "),
+                _vm._m(11)
+              ]
+            ),
             _vm._v(" "),
-            _vm._m(11)
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+              [_vm._v("Create Voucher")]
+            )
           ]
         )
       ])
