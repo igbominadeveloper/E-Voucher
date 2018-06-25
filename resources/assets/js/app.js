@@ -26,14 +26,11 @@ import Voucher from './components/Voucher.vue';
 
 Vue.prototype.$bus = new Vue({});
 
-
 const app = new Vue({
     el: '#app',
     data:{
       account:{},
-      officers:{},
-        user:{},
-      vouchers:{},
+      officer:{},
       response:{},
       error:{}
     },
@@ -42,14 +39,6 @@ const app = new Vue({
         'app-sidebar' : Sidebar,
         'app-login' : Login,
         'app-voucher': Voucher
-    },
-    created(){
-        axios.get('/officer')
-            .then(response => this.officers = response.data)
-            .catch(error => console.log(error.response.data));
-        axios.get('/api/voucher')
-            .then(response => this.vouchers = response.data)
-            .catch(error => console.log(error.response.data));
     },
     methods:{
         createAccount(){
